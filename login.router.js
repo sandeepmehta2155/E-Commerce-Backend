@@ -2,18 +2,12 @@ const mongoose = require('mongoose')
 const express  = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const router=express.Router();
 
 const app = express()
 app.use(bodyParser.json())
 app.use(cors())
 
-
-const uri = `${process.env['uri']}`;
-
-mongoose.connect(uri,{
-useUnifiedTopology:true,
-useNewUrlParser:true
-})
 
 const UserSchema = new mongoose.Schema({
 fullname : String,
@@ -24,8 +18,8 @@ password : String,
 
 const User = mongoose.model('User' , UserSchema)
 
-
-app.get("/", async (req,res)=>{
+router.route("/")
+.get(async (req,res)=>{
   try{
     const users = await User.find({});
     res.json({success : true , users})
@@ -34,8 +28,7 @@ app.get("/", async (req,res)=>{
     }
 
 })
-
-app.post("/",async(req,res)=>{
+.post(async(req,res)=>{
 
     try{
      const user = req.body;

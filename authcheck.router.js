@@ -1,21 +1,12 @@
-const mongoose = require('mongoose')
 const express = require('express')
 const router = express.Router()
+const mongoose = require('mongoose')
 
 const bodyParser = require('body-parser')
 const cors = require('cors')
 
 router.use(bodyParser.json())
 router.use(cors())
-
-const uri = `${process.env['uri']}`;
-
-
-mongoose.connect(uri , {
-  useNewUrlParser : true,
-  useUnifiedTopology : true
-})
-
 
 const User = mongoose.model('User')
 

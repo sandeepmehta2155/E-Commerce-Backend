@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 const bookbatches = require("./bookbatches.router.js");
 const featured = require("./featured.router.js");
@@ -7,6 +8,15 @@ const userdata = require("./login.router.js");
 const userauth = require("./authcheck.router.js");
 var cors = require('cors');
 const PORT= 3000;
+
+const uri = `${process.env['uri']}`;
+
+
+mongoose.connect(uri , {
+  useNewUrlParser : true,
+  useUnifiedTopology : true
+})
+
 
 const app = express();
 
