@@ -1,22 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
 
-const bookbatches = require("./bookbatches.router.js");
-const featured = require("./featured.router.js");
-const userdata = require("./login.router.js");
-const userauth = require("./authcheck.router.js");
+const{ initializeConnection} = require("./InitializeConnection/initializeConnection")
+const bookbatches = require("./Bookbatches/bookbatches.router.js");
+const featured = require("./Bookbatches/featured.router.js");
+const userdata = require("./Login/login.router.js");
+const userauth = require("./Authcheck/authcheck.router.js");
 var cors = require('cors');
-const PORT= 3000;
-
-const uri = `${process.env['uri']}`;
 
 
-mongoose.connect(uri , {
-  useNewUrlParser : true,
-  useUnifiedTopology : true
-})
-
+initializeConnection()
 
 const app = express();
 
@@ -34,6 +27,6 @@ app.use("/login" , userdata)
 app.use("/userauth", userauth)
 
 
-app.listen(PORT, () => {
+app.listen(process.env['PORT'], () => {
   console.log('server started');
 });
